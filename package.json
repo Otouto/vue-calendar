@@ -1,0 +1,11 @@
+{
+    "name": "vue-calendar",
+    "version": "0.0.1",
+    "description": "Simple calendar vidget",
+    "main": "src/main.js",
+    "dependencies": {
+        "express": "4.x"
+    },
+    "author": "Dmitry Lutsik",
+    "license": "MIT"
+}
