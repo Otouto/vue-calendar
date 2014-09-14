@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Calendar</title>
+        <meta charset="utf-8">
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="src/app.css">
+    </head>
+    <body>
+        <div id="app" class="unselect"></div>
+
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js"></script>
+        <script src="lib/moment-range.js"></script>
+        <script src="https://rawgit.com/yyx990803/vue/v0.10.6/dist/vue.js"></script>
+
+        <!-- Templates -->
+        <script type="text/x-template" id="calendar-template">
+            <input class="date" type="text" placeholder="{{format}}" value="{{date}}" v-model="date | dateValidator">
+            <div class="calendar-icon" v-on="click: show = !show">
+                <svg viewBox="0 0 23 23" fill="#6F6F6F">
+                    <g>
+                        <path d="M20,2h-2V1.5C18,0.671,17.328,0,16.5,0S15,0.671,15,1.5V2H8V1.5C8,0.671,7.329,0,6.5,0S5,0.671,5,1.5V2H3
+                            C1.343,2,0,3.387,0,5.097v13.904C0,20.657,1.343,22,3,22h17c1.657,0,3-1.343,3-2.999V5.097C23,3.387,21.657,2,20,2z M20,19.001H3
+                            v-14h2v0.5C5,6.329,5.671,7,6.5,7S8,6.329,8,5.5v-0.5h7v0.5C15,6.329,15.672,7,16.5,7S18,6.329,18,5.5v-0.5h2V19.001z M5,12.001h3
+                            V9H5V12.001z M5,17h3v-3H5V17z M10,17h3v-3h-3V17z M15,12.001h3V9h-3V12.001z M10,12.001h3V9h-3V12.001z M15,17h3v-3h-3V17z"/>
+
+                    </g>
+                </svg>
+            </div>
+
+            <div class="calendar" v-show="show">
+                <div class="calendar-header">
+                    <nav>
+                        <span class="calendar-header-arrow prev" v-on="click: prev"></span>
+                        <span class="calendar-header-arrow next" v-on="click: next"></span>
+                    </nav>
+                    <div class="calendar-header-title" v-on="click: nextView">{{title}}</div>
+                </div>
+                <div class="calendar-container" v-view="currentView"></div>
+                <button type="button" class="calendar-btn" v-on="click: setToday">Today</button>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="days-template">
+            <div class="calendar-week-days">
+                <span
+                    v-repeat="weekDays"
+                    class="calendar-week-day">
+                    {{$value}}
+                </span>
+            </div>
+            <div class="calendar-table">
+                <span class="calendar-cell days"
+                        v-class="unactive: !isActive,
+                                active: isActive,
+                                choosed: this.d == date"
+                        v-on="click: selectItem(this)"
+                        v-repeat="calendarItems">
+                        {{val}}
+                </span>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="months-template">
+            <div class="calendar-table">
+                <span class="calendar-cell month"
+                        v-class="choosed: this.d.slice(3) == date.slice(3)"
+                        v-on="click: selectItem(this)"
+                        v-repeat="calendarItems">
+                        {{val}}
+                </span>
+            </div>
+        </script>
+
+        <script type="text/x-template" id="years-template">
+            <div class="calendar-table">
+                <span class="calendar-cell month"
+                        v-class="choosed: this.d.slice(6) == date.slice(6)"
+                        v-on="click: selectItem(this)"
+                        v-repeat="calendarItems">
+                        {{val}}
+                </span>
+            </div>
+        </script>
+        <script src="src/app.js"></script>
+    </body>
+</html>
