@@ -23,7 +23,7 @@ var calendar = new Vue({
         format: 'DD/MM/YYYY',
         title: '',
         calendarItems: [],
-        currentView: 'Years'
+        currentView: 'Days'
     },
 
     created: function () {
@@ -96,6 +96,7 @@ var calendar = new Vue({
     methods: {
         setToday: function () {
             this.date = this.dateStr = moment().format(this.format);
+            this.show = false;
         },
 
         selectItem: function (el) {
@@ -137,8 +138,9 @@ var calendar = new Vue({
         close: function (e) {
             if (!e.relatedTarget ||
                 (e.relatedTarget.className != 'calendar-input' &&
+                e.relatedTarget.className != 'calendar-btn' &&
                 e.relatedTarget.className != 'calendar-main')
-                ) this.show = false;
+            ) this.show = false;
         },
 
         onEnter: function () {

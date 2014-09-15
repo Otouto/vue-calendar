@@ -50,6 +50,8 @@
     background: #f6f6f6;
     position: absolute;
     top: 40px;
+    opacity: 0;
+    transition: opacity 0.15s;
 }
 
 .calendar-header {
@@ -188,6 +190,10 @@
 .unactive {
     color: #C0C0C0;
     pointer-events: none;
+}
+
+.show {
+    opacity: 1;
 }
 
 .unselect {
