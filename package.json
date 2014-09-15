@@ -1,7 +1,7 @@
 {
     "name": "vue-calendar",
     "version": "0.0.1",
-    "description": "Simple calendar vidget",
+    "description": "Simple calendar widget",
     "main": "src/main.js",
     "dependencies": {
         "express": "4.x"
