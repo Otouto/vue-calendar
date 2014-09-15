@@ -37,9 +37,11 @@
 }
 
 .calendar-icon {
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiP…gtM1YxMi4wMDF6IE0xNSwxN2gzdi0zaC0zVjE3eiIvPg0KCTwvZz4NCjwvZz4NCjwvc3ZnPg0K);
+    background-size: contain;
     width: 17px;
     height: 17px;
-    padding: 4px;
+    margin: 4px;
 }
 
 .calendar {
