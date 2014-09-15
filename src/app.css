@@ -7,9 +7,10 @@
 
 .calendar-input {
     width: 150px;
+    height: 15px;
     border: 1px solid #6F6F6F;
     padding: 5px;
-    margin: 0;
+    font-size: 14px;
     outline: none;
     color: #979797;
     border-top-left-radius: 3px;
