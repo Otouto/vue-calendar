@@ -25,15 +25,7 @@
                                                         blur: close">
                 <input class="calendar-input" type="text" placeholder="{{format}}" value="{{date}}" v-model="date | dateValidator" v-on="blur: close" tabindex="-1">
                 <div class="calendar-show" v-on="click: show = !show">
-                    <svg viewBox="0 0 24 24" fill="#F5F5F5" class="calendar-icon">
-                        <g>
-                            <path d="M20,2h-2V1.5C18,0.671,17.328,0,16.5,0S15,0.671,15,1.5V2H8V1.5C8,0.671,7.329,0,6.5,0S5,0.671,5,1.5V2H3
-                                C1.343,2,0,3.387,0,5.097v13.904C0,20.657,1.343,22,3,22h17c1.657,0,3-1.343,3-2.999V5.097C23,3.387,21.657,2,20,2z M20,19.001H3
-                                v-14h2v0.5C5,6.329,5.671,7,6.5,7S8,6.329,8,5.5v-0.5h7v0.5C15,6.329,15.672,7,16.5,7S18,6.329,18,5.5v-0.5h2V19.001z M5,12.001h3
-                                V9H5V12.001z M5,17h3v-3H5V17z M10,17h3v-3h-3V17z M15,12.001h3V9h-3V12.001z M10,12.001h3V9h-3V12.001z M15,17h3v-3h-3V17z"/>
-
-                        </g>
-                    </svg>
+                    <div class="calendar-icon"></div>
                 </div>
 
                 <div class="calendar" v-class="show: show">
