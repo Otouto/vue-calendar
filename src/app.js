@@ -102,7 +102,7 @@ var calendar = new Vue({
         selectItem: function (el) {
             switch (this.currentView) {
                 case 'Months':
-                    this.date = {month: el.d.slice(3,5)}
+                    this.date = {month: el.d.slice(3,5), year: el.d.slice(6)}
                     break;
                 case 'Years':
                     this.date = {year: el.d.slice(6)}
