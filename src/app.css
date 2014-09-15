@@ -1,14 +1,45 @@
 #app {
     font-family: 'Roboto', sans-serif;
+    position: relative;
     margin: 100px auto;
     width: 400px;
 }
 
+.calendar-input {
+    width: 150px;
+    border: 1px solid #6F6F6F;
+    padding: 5px;
+    margin: 0;
+    outline: none;
+    color: #979797;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    position: relative;
+    float: left;
+}
+
+.calendar-show {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #6F6F6F;
+    border-left: none;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background: #28BDB7;
+    position: relative;
+    float: left;
+    text-align: center;
+    color: #5C5C5C;
+}
+
+.calendar-main:focus {
+    outline: none;
+}
+
 .calendar-icon {
-    width: 23px;
-    height: 23px;
-    display: inline-block;
-    vertical-align: bottom;
+    width: 18px;
+    height: 18px;
+    padding: 4px;
 }
 
 .calendar {
@@ -16,8 +47,11 @@
     border: 1px solid #D1D1D1;
     border-top: none;
     overflow: hidden;
-    margin-top: 10px;
     background: #f6f6f6;
+    position: absolute;
+    top: 40px;
+    opacity: 0;
+    transition: opacity 0.15s;
 }
 
 .calendar-header {
@@ -30,7 +64,6 @@
     border-bottom: 1px solid #ddd;
 }
 
-/*Nav bar*/
 .calendar-header nav span {
     position: absolute;
     top: 11px;
@@ -97,7 +130,7 @@
 
 .calendar-header-title {
     text-align: center;
-    cursor: pointer;
+    pointer-events: none;
 }
 
 .calendar-week-days {
@@ -128,8 +161,13 @@
     height: 50px;
 }
 
-.month {
+.months {
     width: 116px;
+    height: 50px;
+}
+
+.years {
+    width: 87px;
     height: 50px;
 }
 
@@ -144,9 +182,18 @@
     color: #fff;
 }
 
+.clickable {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
 .unactive {
     color: #C0C0C0;
     pointer-events: none;
+}
+
+.show {
+    opacity: 1;
 }
 
 .unselect {
@@ -157,13 +204,4 @@
     -ms-user-select: none;
     user-select: none;
     cursor: default;
-}
-
-.date {
-    width: 150px;
-    border: none;
-    border-bottom: 1px solid #6F6F6F;
-    padding: 5px;
-    outline: none;
-    color: #979797;
 }

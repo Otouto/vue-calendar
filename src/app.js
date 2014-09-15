@@ -19,6 +19,7 @@ var calendar = new Vue({
 
     data: {
         show: false,
+        isTitleActive: true,
         format: 'DD/MM/YYYY',
         title: '',
         calendarItems: [],
@@ -29,17 +30,26 @@ var calendar = new Vue({
         this.views = {
             Days: {
                 offset: 1,
-                items: 'month'
+                items: 'month',
+                keyItems: 'day',
+                keyNextOffset: 1,
+                keyRowOffset: 7
             },
 
             Months: {
                 offset: 1,
-                items: 'year'
+                items: 'year',
+                keyItems: 'month',
+                keyNextOffset: 1,
+                keyRowOffset: 3
             },
 
             Years: {
                 offset: 15,
-                items: 'year'
+                items: 'year',
+                keyItems: 'year',
+                keyNextOffset: 1,
+                keyRowOffset: 4
             },
         };
 
@@ -86,6 +96,7 @@ var calendar = new Vue({
     methods: {
         setToday: function () {
             this.date = this.dateStr = moment().format(this.format);
+            this.show = false;
         },
 
         selectItem: function (el) {
@@ -123,12 +134,51 @@ var calendar = new Vue({
             this.dateStr = this.moment.subtract(params.offset, params.items).format(this.format);
         },
 
-        _shiftView: function (i) {
-            var keys = Object.keys(this.views);
-                newView = keys[Object.keys(this.views).indexOf(this.currentView) + i];
+        // keyboard handlers
+        close: function (e) {
+            if (!e.relatedTarget ||
+                (e.relatedTarget.className != 'calendar-input' &&
+                e.relatedTarget.className != 'calendar-btn' &&
+                e.relatedTarget.className != 'calendar-main')
+            ) this.show = false;
+        },
 
+        onEnter: function () {
+            this.prevView();
+        },
+
+        onTab: function () {
+            this.nextView();
+        },
+
+        keyNext: function () {
+            var params = this.views[this.currentView];
+            this.date = this.moment.add(params.keyNextOffset, params.keyItems).format(this.format);
+        },
+
+        keyPrev: function () {
+            var params = this.views[this.currentView];
+            this.date = this.moment.subtract(params.keyNextOffset, params.keyItems).format(this.format);
+        },
+
+        keyUp: function () {
+            var params = this.views[this.currentView];
+            this.date = this.moment.subtract(params.keyRowOffset, params.keyItems).format(this.format);
+        },
+
+        keyDown: function () {
+            var params = this.views[this.currentView];
+            this.date = this.moment.add(params.keyRowOffset, params.keyItems).format(this.format);
+        },
+
+        _shiftView: function (offset) {
+            var keys = Object.keys(this.views);
+                newView = keys[Object.keys(this.views).indexOf(this.currentView) + offset];
+
+            if (offset < 0 && !newView) this.show = false;
             if (!newView) return;
 
+            this.isTitleActive = (newView === 'Years') ? false : true;
             this['_fill' + newView]();
             this.currentView = newView;
         },
@@ -170,9 +220,24 @@ var calendar = new Vue({
         },
 
         _fillYears: function() {
-            var start = this.moment.subtract(7, 'year'),
-                end = this.moment.add(7, 'year'),
-                self = this;
+            var year = this.moment.year(),
+                self = this,
+                floor, ceil, start, end, params;
+
+            function setRange (year) {
+                floor = Math.floor(year / 15) * 15,
+                ceil = Math.ceil(year / 15) * 15;
+
+                if (floor == ceil) setRange(year - 1);
+
+                return {floor: floor, ceil: ceil};
+            }
+
+            params = setRange(year);
+            start = this.moment.year(params.floor);
+            end = this.moment.year(params.ceil);
+
+
             this.calendarItems = [];
             this.title = start.format('YYYY') + '-' + end.format('YYYY');
 
